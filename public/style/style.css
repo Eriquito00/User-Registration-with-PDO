@@ -1,0 +1,90 @@
+body {
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: rgb(40, 40, 40);
+    color: white;
+}
+
+h1 {
+    text-align: center;
+    font-size: 50px;
+    margin: 10px;
+}
+
+input {
+    margin: 20px;
+    font-size: 25px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0px 0px 4px 4px rgba(0, 0, 0, 1);
+    transition: box-shadow 0.5s;
+}
+
+input:focus {
+    outline: none;
+    box-shadow: 0px 0px 4px 4px rgb(255, 255, 255);
+}
+
+button {
+    border-radius: 10px;
+    padding: 10px;
+    margin: 20px;
+    font-size: 20px;
+    box-shadow: 0px 0px 4px 4px rgba(0, 0, 0, 1);
+    border: none;
+    background-color: rgb(70, 70, 70);
+    cursor: pointer;
+    transition: background-color 0.5s;
+    color: white;
+}
+
+button:hover {
+    background-color: rgb(100, 100, 100);
+}
+
+strong {
+    font-size: 25px;
+}
+
+/* index.php */
+.buttons_div {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    align-self: center;
+    justify-self: center;
+    margin-top: 200px;
+}
+
+/* CRUD.php */
+.formulario {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    align-self: center;
+    justify-self: center;
+    margin-top: 50px;
+}
+
+table {
+    width: calc(100% - 40px);
+    border-collapse: collapse;
+    border: 1px solid white;
+    margin: 20px;
+}
+
+th {
+    font-size: 20px;
+}
+
+td {
+    font-size: 15px;
+    text-align: left;
+}
+
+th, td {
+    border-left: 1px solid white;
+    border-bottom: 1px solid white;
+}
