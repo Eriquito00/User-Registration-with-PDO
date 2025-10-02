@@ -11,7 +11,7 @@
     <form class="formulario">
         <input type="text" name="id" placeholder="ID">
         <button type="submit">Read one</button>
-        <button type="submit">Read all</button>
+        <button type="submit" name="submit_readall">Read all</button>
         <button type="button" onclick="location.href='../../public/index.php'">Return</button>
     </form>
     <table>
@@ -22,6 +22,15 @@
             <th>Email</th>
             <th>Telephone</th>
         </tr>
+        <?php for ($i = 0; $i < count($users ?? []); $i++): ?>
+        <tr>
+            <td><?php echo htmlspecialchars($users[$i]['id']); ?></td>
+            <td><?php echo htmlspecialchars($users[$i]['name']); ?></td>
+            <td><?php echo htmlspecialchars($users[$i]['surname']); ?></td>
+            <td><?php echo htmlspecialchars($users[$i]['email']); ?></td>
+            <td><?php echo htmlspecialchars($users[$i]['telephone']); ?></td>
+        </tr>
+        <?php endfor; ?>
     </table>
 </body>
 </html>

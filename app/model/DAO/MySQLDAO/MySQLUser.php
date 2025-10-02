@@ -10,11 +10,28 @@ class MySQLUser implements MySQLUserDAO {
     }
 
     public function create(User $user) {
-        // Implementation for creating a user in the database
-        // if user.email or user.telephone already exists, return an error
+        try {
+            if ($this->checkEmailExists($user->email)) throw new Exception("Email already exists");
+            if ($this->checkTelephoneExists($user->telephone)) throw new Exception("Telephone already exists");
+
+            $stmt = $this->connection->prepare("INSERT INTO users (name, surname, email, telephone) VALUES (:name, :surname, :email, :telephone)");
+            $stmt->bindParam(':name', $user->name);
+            $stmt->bindParam(':surname', $user->surname);
+            $stmt->bindParam(':email', $user->email);
+            $stmt->bindParam(':telephone', $user->telephone);
+
+            $stmt->execute();
+        }
+        catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
     }
 
-    public function read() {
+    public function readOne($id) {
+        // Implementation for reading a single user from the database by ID
+    }
+
+    public function readAll() {
         $stmt = $this->connection->prepare("SELECT * FROM users");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -30,14 +47,20 @@ class MySQLUser implements MySQLUserDAO {
         // Implementation for deleting a user from the database
     }
 
-    function checkEmailExists($email){
-        // check if the email already exists
-        // return true if exists, false if doesn't
+    private function checkEmailExists($email){
+        $stmt = $this->connection->prepare("SELECT * FROM users WHERE email = :email");
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+        if ($stmt->rowCount() > 0) return true;
+        return false;
     }
 
-    function checkTelephoneExists($telephone){
-        // check if the telephone already exists
-        // return true if exists, false if doesn't
+    private function checkTelephoneExists($telephone){
+        $stmt = $this->connection->prepare("SELECT * FROM users WHERE telephone = :telephone");
+        $stmt->bindParam(':telephone', $telephone);
+        $stmt->execute();
+        if ($stmt->rowCount() > 0) return true;
+        return false;
     }
 }
 ?>
