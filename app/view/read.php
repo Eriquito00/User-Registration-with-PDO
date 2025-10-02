@@ -8,10 +8,11 @@
 </head>
 <body>
     <h1>Read User</h1>
-    <form class="formulario">
-        <input type="text" name="id" placeholder="ID">
-        <button type="submit">Read one</button>
-        <button type="submit" name="submit_readall">Read all</button>
+    <form class="formulario" action="../controller/read.php" method="post">
+        <input type="number" name="id" placeholder="ID">
+        <p><?= htmlspecialchars($errorMessage ?? '') ?></p>
+        <button type="submit" name="submit_readOne">Read one</button>
+        <button type="submit" name="submit_readAll">Read all</button>
         <button type="button" onclick="location.href='../../public/index.php'">Return</button>
     </form>
     <table>
@@ -24,7 +25,7 @@
         </tr>
         <?php for ($i = 0; $i < count($users ?? []); $i++): ?>
         <tr>
-            <td><?php echo htmlspecialchars($users[$i]['id']); ?></td>
+            <td><?php echo htmlspecialchars($users[$i]['user_id']); ?></td>
             <td><?php echo htmlspecialchars($users[$i]['name']); ?></td>
             <td><?php echo htmlspecialchars($users[$i]['surname']); ?></td>
             <td><?php echo htmlspecialchars($users[$i]['email']); ?></td>

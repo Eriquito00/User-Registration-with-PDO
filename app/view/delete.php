@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,11 +8,29 @@
 </head>
 <body>
     <h1>Delete User</h1>
-    <form class="formulario" action="../index.php" method="post">
+    <form class="formulario" action="../controller/delete.php" method="post">
         <input type="number" name="id" placeholder="ID" required>
+        <p><?= htmlspecialchars($errorMessage ?? ""); ?></p>
         <button type="submit" name="submit_delete">Delete</button>
         <button type="button" onclick="location.href='../../public/index.php'">Return</button>
     </form>
-    <!-- cargar aqui la tabla entera con todos los usuarios -->
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Email</th>
+            <th>Telephone</th>
+        </tr>
+        <?php for ($i = 0; $i < count($users ?? []); $i++): ?>
+        <tr>
+            <td><?php echo htmlspecialchars($users[$i]['user_id']); ?></td>
+            <td><?php echo htmlspecialchars($users[$i]['name']); ?></td>
+            <td><?php echo htmlspecialchars($users[$i]['surname']); ?></td>
+            <td><?php echo htmlspecialchars($users[$i]['email']); ?></td>
+            <td><?php echo htmlspecialchars($users[$i]['telephone']); ?></td>
+        </tr>
+        <?php endfor; ?>
+    </table>
 </body>
 </html>

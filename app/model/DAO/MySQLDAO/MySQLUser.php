@@ -28,7 +28,10 @@ class MySQLUser implements MySQLUserDAO {
     }
 
     public function readOne($id) {
-        // Implementation for reading a single user from the database by ID
+        $stmt = $this->connection->prepare("SELECT * FROM users WHERE user_id = :id");
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     public function readAll() {
@@ -38,13 +41,28 @@ class MySQLUser implements MySQLUserDAO {
     }
 
     public function update(User $user) {
-        // Implementation for updating a user in the database
-        // if user.email or user.telephone already exists, return an error
+        try {
+            if ($this->checkEmailExists($user->email)) throw new Exception("Email already exists");
+            if ($this->checkTelephoneExists($user->telephone)) throw new Exception("Telephone already exists");
+
+            $stmt = $this->connection->prepare("UPDATE users SET name = :name, surname = :surname, email = :email, telephone = :telephone WHERE user_id = :id");
+            $stmt->bindParam(':id', $user->id);
+            $stmt->bindParam(':name', $user->name);
+            $stmt->bindParam(':surname', $user->surname);
+            $stmt->bindParam(':email', $user->email);
+            $stmt->bindParam(':telephone', $user->telephone);
+
+            $stmt->execute();
+        }
+        catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
     }
 
     public function delete($id) {
-        // use the read function to show all users and then the ID that the user says delete it 
-        // Implementation for deleting a user from the database
+        $stmt = $this->connection->prepare("DELETE FROM users WHERE user_id = :id");
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
     }
 
     private function checkEmailExists($email){

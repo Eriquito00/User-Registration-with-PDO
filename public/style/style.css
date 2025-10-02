@@ -73,10 +73,12 @@ table {
     border-collapse: collapse;
     border: 1px solid white;
     margin: 20px;
+    word-wrap: break-word;
+    table-layout: fixed;
 }
 
 th {
-    font-size: 20px;
+    font-size: 18px;
 }
 
 td {
@@ -93,4 +95,14 @@ p {
     color: red;
     font-size: 20px;
     text-align: center;
+}
+
+@media (min-width: 1000px) {
+    th {
+        font-size: 25px;
+    }
+
+    td {
+        font-size: 20px;
+    }
 }
